@@ -1,5 +1,8 @@
+require "table_transformer/helper"
+
 module TableTransformer
   class LineGenerator
+    include Helper
     attr_reader :column_width
     def initialize(column_width:)
       @column_width = column_width
@@ -36,7 +39,7 @@ module TableTransformer
     def generate_line(data)
       "|".tap do |line|
         column_width.each do |k, v|
-          blank_number = v - data[k].size - 1
+          blank_number = v - width(data[k]) - 1
           line += " " + data[k].to_s + " " * blank_number + "|"
         end
         break line
