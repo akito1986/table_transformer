@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "table_transformer"
   spec.version       = TableTransformer::VERSION
   spec.authors       = ["Akito Ueno"]
-  spec.email         = ["satsudai200411078@yahoo.co.jp"]
+  spec.email         = ["aueno@idcf.jp"]
 
   spec.summary       = %q{This tool transform from array or hash data to table data.}
   spec.description   = %q{This tool transform from array or hash data to table data.}
