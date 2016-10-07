@@ -49,7 +49,7 @@ module TableTransformer
         original.each do |data|
           transformed_data = {}.tap do |t_data|
             keys.each do |k|
-              t_data[k] = data[k].to_s if data[k]
+              t_data[k] = data[k].to_s
             end
             break t_data
           end
@@ -77,7 +77,7 @@ module TableTransformer
     def max_size
       @max_size ||= {}.tap do |size|
         keys.each do |k|
-          max_data = string_data.max_by { |data| data[k].size }
+          max_data = string_data.max_by { |data| data[k].to_s.size }
           size[k] = max_data[k].to_s.size
         end
         break size
