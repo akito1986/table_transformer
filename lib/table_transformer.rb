@@ -1,9 +1,11 @@
 require "active_support"
 require "active_support/core_ext"
 require "table_transformer/line_generator"
+require "table_transformer/helper"
 
 module TableTransformer
   class Data
+    include Helper
     attr_reader :original, :keys
     def initialize(original:, keys: [])
       @original = if original.class.method_defined?(:keys)
@@ -67,7 +69,7 @@ module TableTransformer
     def column_width
       @column_width ||= {}.tap do |width|
         keys.each do |k|
-          width[k] = max_size[k] < k.size ? k.size :  max_size[k]
+          width[k] = max_size[k] < width(k) ? width(k) : max_size[k]
           width[k] += 2
         end
         break width
@@ -77,8 +79,8 @@ module TableTransformer
     def max_size
       @max_size ||= {}.tap do |size|
         keys.each do |k|
-          max_data = string_data.max_by { |data| data[k].to_s.size }
-          size[k] = max_data[k].to_s.size
+          max_data = string_data.max_by { |data| width(data[k]) }
+          size[k] = width(max_data[k])
         end
         break size
       end
